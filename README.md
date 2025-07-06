@@ -1,2 +1,2 @@
-# Chatbot-Langgraph
-Basic Conversational Chatbot using Langgraph and OpenRouter
+# Chatbot using Langgraph
+

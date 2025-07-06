@@ -1,0 +1,8 @@
+{
+    "dependencies": ["."],
+    "env": ".env",
+    "python_version": "3.12",
+    "graphs": {
+        "chatbot": "./main.py:agent"
+    }
+}
