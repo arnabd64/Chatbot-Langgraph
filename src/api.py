@@ -1,18 +1,20 @@
 import uuid
 from typing import Annotated, List
 
+import gradio
 from fastapi import Depends, FastAPI
 from fastapi.responses import PlainTextResponse
 
-from src.agent import Chatbot
-from src.schema import AgentState, APIResponse, OpenAIMessage
+from src.agent import ChatHandler
+from src.schema import APIResponse, OpenAIMessage
+from src.webapp import webapp
 
 app = FastAPI()
 
 
 @app.get("/", response_class=PlainTextResponse)
 async def root():
-    return 
+    return "Server is Running"
 
 
 @app.get("/chat/id", response_class=PlainTextResponse)
@@ -21,21 +23,10 @@ async def generate_chat_id():
 
 
 @app.post("/chat/{id}", response_model=APIResponse)
-async def agentic_chat(id: str, messages: List[OpenAIMessage], chatbot: Annotated[Chatbot, Depends()]) -> APIResponse:
-    # compile agent
-    workflow = chatbot.build_workflow()
+async def agentic_chat(
+    id: str, messages: List[OpenAIMessage], handler: Annotated[ChatHandler, Depends()]
+) -> APIResponse:
+    return {"error": "false", "data": await handler.chat_with_api(id, messages)}
 
-    # invoke agent
-    response: AgentState = await workflow.ainvoke(
-        {"messages": messages},
-        config = {
-            "configurable": {
-                "thread_id": id
-            }
-        }
-    )
 
-    return {
-        "error": "false",
-        "data": chatbot.format_response(response)
-    }
+app = gradio.mount_gradio_app(app, webapp, "/app")

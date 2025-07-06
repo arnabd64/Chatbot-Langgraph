@@ -16,4 +16,3 @@ class APIResponse(TypedDict):
 class OpenAIMessage(TypedDict):
     role: Literal["human", "ai", "tool"]
     content: str
-
