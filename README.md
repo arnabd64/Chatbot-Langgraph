@@ -6,7 +6,7 @@ This project implements a conversational agent (chatbot) using **Langgraph**, a 
 
 ## 📋 Prerequisites
 
-- 🐍 Python 3.8+
+- 🐍 Python 3.12+
 - 🔑 OpenAI API key (or compatible API provider)
 - 📦 Git
 
