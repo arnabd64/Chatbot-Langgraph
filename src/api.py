@@ -14,11 +14,13 @@ app = FastAPI()
 
 @app.get("/", response_class=PlainTextResponse)
 async def root():
+    """Endpoint to test server status"""
     return "Server is Running"
 
 
 @app.get("/chat/id", response_class=PlainTextResponse)
 async def generate_chat_id():
+    """Generate a Session ID to be used for chat"""
     return str(uuid.uuid4())
 
 
@@ -26,7 +28,8 @@ async def generate_chat_id():
 async def agentic_chat(
     id: str, messages: List[OpenAIMessage], handler: Annotated[ChatHandler, Depends()]
 ) -> APIResponse:
+    """Endpoint for Chat"""
     return {"error": "false", "data": await handler.chat_with_api(id, messages)}
 
-
+# Integrate gradio webapp to the fastapi
 app = gradio.mount_gradio_app(app, webapp, "/app")

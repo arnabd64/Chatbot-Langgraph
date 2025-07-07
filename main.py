@@ -1,13 +1,13 @@
-from src.api import app
+"""
+Run the `main.py` file to deploy the FastAPI web server
+"""
 
-if __name__ == '__main__':
-    import uvicorn
+import uvicorn
 
+if __name__ == "__main__":
     uvicorn.run(
-        app,
-        host = "0.0.0.0",
-        port = 8000,
-        headers = [
-            ('X-Application', 'Langgraph-Chatbot')
-        ]
+        "src.api:app",
+        host="0.0.0.0",
+        port=8000,
+        headers=[("X-Application", "Langgraph-Chatbot")],
     )
